@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
-font font pango: Monospace 10 
+font DejaVu Sans Mono 8 
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
@@ -29,17 +29,18 @@ bindsym $mod+Return exec urxvt
 # start firefox
 bindsym $mod+P exec firefox
 
+
 # Startup programs
 exec --no-startup-id nm-applet
-exec --no-startup-id feh --bg-fill ~/Pictures/1429535830291.jpg
+exec --no-startup-id feh --bg-fill ~/Pictures/1429535486215.jpg
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # Custom KeyBinds
-bindsym Control+mod1+l exec sh ~/.i3/i3lock.sh
-bindsym Print exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/1429535830291.jpg'
-
+bindsym Control+$mod+l exec sh ~/.i3/i3lock.sh
+bindsym Print exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/'
+bindsym $mod+Print exec scrot -s '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/'
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
@@ -100,10 +101,11 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 #set tags
+set $tag1 "1: Internet"
 set $tag2 "2: Code"
 set $tag3 "3: Multimedia"
 # switch to workspace
-bindsym $mod+1 workspace 1
+bindsym $mod+1 workspace $tag1
 bindsym $mod+2 workspace $tag2
 bindsym $mod+3 workspace $tag3
 bindsym $mod+4 workspace 4
@@ -115,7 +117,7 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+1 move container to workspace $tag1
 bindsym $mod+Shift+2 move container to workspace $tag2
 bindsym $mod+Shift+3 move container to workspace $tag3
 bindsym $mod+Shift+4 move container to workspace 4
@@ -181,4 +183,5 @@ bar {
     # Using custom i3status.conf
     status_command i3status -c ~/.i3/i3status.conf
 }
-
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
