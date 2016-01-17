@@ -88,10 +88,30 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-
+alias shutdown='sudo shutdown -h now'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+ex() {
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2|*.tbz2|*.tar.xz) tar xvjf $1   ;;
+            *.tar.gz|*.tgz)            tar xvzf $1   ;;
+            *.7z|*.001)                7z x $1       ;;
+            *.bz2)                     bunzip2 $1    ;;
+            *.gz)                      gunzip $1     ;;
+            *.lzma)                    unlzma $1     ;;
+            *.rar)                     unrar x $1    ;;
+            *.tar)                     tar xf $1     ;;
+            *.xz)                      unxz $1       ;;
+            *.tar.xz)                  tar -xvf $1   ;;
+            *.Z)                       uncompress $1 ;;
+            *.zip)                     unzip $1      ;;
+            *) echo "'$1' cannot be extracted by ex()" ;;
+        esac
+    fi
+}
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -112,3 +132,5 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+
