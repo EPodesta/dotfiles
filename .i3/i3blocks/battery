@@ -1,0 +1,24 @@
+#!/usr/bin/sh
+# consider color and urgent flag only on discharge
+#  
+# 
+# 
+# 
+# 
+data=$(awk '{print $5, "["substr($4, 0, length($4)-1)"]"}' <<< $(acpi))
+percent=$(awk '{print substr($2, 2, length($2)-3)}' <<< "$data")
+if [ "$percent" -gt 75 ]; then
+	echo " $data"
+elif [ "$percent" -le 75 ] && [ "$percent" -gt 50 ]; then
+	echo " $data"
+elif [ "$percent" -le 50 ] && [ "$percent" -gt 25 ]; then
+	echo " $data"
+elif [ "$percent" -le 25 ] && [ "$percent" -gt 10 ]; then
+	echo " $data"
+elif [ "$percent" -le 10 ]; then
+	echo " $data"
+fi
+#echo "$data"
+echo
+(( $percent < 10 )) && echo \#FF0000  || exit 0
+
