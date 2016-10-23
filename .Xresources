@@ -9,10 +9,13 @@ URxvt*cursorUnderline:      true
 URxvt*iso14755:             false
 URxvt*scrollBar:            false
 URxvt*internalBorder:       1
+URxvt*scrollTtyOutput:      false
+URxvt*scrollWithBuffer:     true
+URxvt*scrollTtyKeypress:    true
 
 ! font settings
 URxvt*font:                 xft:Monospace:pixelsize=12
-URxvt*letterSpace:          0
+URxvt*letterSpace:          -2
 
 ! ambience terminator colors
 ! black
@@ -50,3 +53,12 @@ URxvt*keysym.Control-Up:    \033[1;5A
 URxvt*keysym.Control-Down:  \033[1;5B
 URxvt*keysym.Control-Left:  \033[1;5D
 URxvt*keysym.Control-Right: \033[1;5C
+
+! font rendering configs
+Xft.antialias: true
+Xft.autohint: 0
+Xft.dpi: 96
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+Xft.rgba: rgb
