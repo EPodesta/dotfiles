@@ -37,13 +37,14 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
-
+export TERM=xterm-256color
+COLORTERM='rxvt-unicode-256color'
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -57,7 +58,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[1;37m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -84,34 +85,17 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias shutdown='sudo shutdown -h now'
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-ex() {
-    if [ -f $1 ] ; then
-        case $1 in
-            *.tar.bz2|*.tbz2|*.tar.xz) tar xvjf $1   ;;
-            *.tar.gz|*.tgz)            tar xvzf $1   ;;
-            *.7z|*.001)                7z x $1       ;;
-            *.bz2)                     bunzip2 $1    ;;
-            *.gz)                      gunzip $1     ;;
-            *.lzma)                    unlzma $1     ;;
-            *.rar)                     unrar x $1    ;;
-            *.tar)                     tar xf $1     ;;
-            *.xz)                      unxz $1       ;;
-            *.tar.xz)                  tar -xvf $1   ;;
-            *.Z)                       uncompress $1 ;;
-            *.zip)                     unzip $1      ;;
-            *) echo "'$1' cannot be extracted by ex()" ;;
-        esac
-    fi
-}
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -132,5 +116,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-

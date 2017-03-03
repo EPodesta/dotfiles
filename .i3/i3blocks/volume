@@ -1,9 +1,9 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-    2) amixer -q -c 1 set Master toggle ;;
-    4) amixer -q -c 1 sset Master 1%+ ;;
-    5) amixer -q -c 1 sset Master 1%- ;;
+    2) alsamixer -D pulse sset Master toggle ;;
+    4) alsamixer -D pulse sset Master 1%+ ;;
+    5) alsamixer -D pulse sset Master 1%- ;;
 esac
 
-echo "$(amixer -c 1 get Master | awk 'FNR==5 {print substr($6,2,length($6)-2), $4}')"
+echo "$(amixer -c 0 get Master | awk 'FNR==5 {print substr($6,5,length($6)-2), $4}')"
