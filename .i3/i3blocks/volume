@@ -1,9 +1,26 @@
-#!/bin/sh
+#!/bin/bash
 
-case $BLOCK_BUTTON in
-    2) alsamixer -D pulse sset Master toggle ;;
-    4) alsamixer -D pulse sset Master 1%+ ;;
-    5) alsamixer -D pulse sset Master 1%- ;;
-esac
+# Left click
+if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+    amixer -c 2 -q sset PCM 5%+
+    # Middle click
+elif [[ "${BLOCK_BUTTON}" -eq 2 ]]; then
+    amixer -c 2 -q sset PCM toggle
+    # Right click
+elif [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+    amixer -c 2 -q sset PCM 5%-
+fi
 
-echo "$(amixer -c 0 get Master | awk 'FNR==5 {print substr($6,5,length($6)-2), $4}')"
+statusLine=$(amixer -c 2 get PCM | tail -n 1)
+status=$(echo "${statusLine}" | grep -wo "on")
+volume=$(echo "${statusLine}" | awk -F ' ' '{print $4}' | tr -d '[]%')
+
+    if [[ "${status}" == "on" ]]; then
+    echo "${volume}%"
+    echo "${volume}%"
+    echo ""
+else
+    echo "off"
+    echo "off"
+    echo ""
+fi

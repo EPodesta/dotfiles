@@ -1,4 +1,4 @@
-" ~/.vimrc
+  " ~/.vimrc
 "
 
 " no vi compat
@@ -39,7 +39,7 @@ scriptencoding utf-8
 " let g:Powerline_symbols = 'fancy'
 
 set linespace=8
-set guifont=Inconsolata\ 14
+set guifont=Fantasque\ Sans\ Mono\ 12
 let Powerline_symbols = 'fancy'
 
 " set color
@@ -65,6 +65,12 @@ let g:lightline = {
       \ 'colorscheme': 'badwolf',
       \ }
 
+" ================ Turn Off Swap Files ==============
+"
+set noswapfile
+set nobackup
+set nowb
+
 function! TrimWhitespace()
     let vsave = winsaveview()
     %s/\s\+$//e
@@ -74,9 +80,9 @@ endfunction
 autocmd BufWritePre * :call TrimWhitespace()
 
 " insert characters automatically
-inoremap <      <><Left>
-inoremap "      ""<Left>
-inoremap '      ''<Left>
+" inoremap <      <><Left>
+" inoremap "      ""<Left>
+" inoremap '      ''<Left>
 
 inoremap (      ()<Left>
 inoremap (<CR>  (<CR>)<ESC>O<Tab>
@@ -179,6 +185,9 @@ set tabstop=4
 
 " better command-line completion
 set wildmenu
+
+" set indent
+set textwidth=80
 
 " turn syntax highlighting on
 syntax on
