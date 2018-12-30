@@ -9,13 +9,18 @@ filetype off
 
 " initialize vundle
 set rtp+=~/.vim/bundle/Vundle.vim
-set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
+set rtp+=/usr/local/lib/python3.6/dist-packages/powerline/bindings/vim/
 call vundle#begin()
 " start- all plugins below
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'airblade/vim-gitgutter'
+"Plugin 'dpelle/vim-LanguageTool'
+Plugin 'rhysd/vim-grammarous'
+
 " Plugin 'morhetz/gruvbox'
-Plugin 'sjl/badwolf'
+"Plugin 'sjl/badwolf'"
+"Plugin 'whatyouhide/vim-gotham'"
+Plugin 'kristijanhusak/vim-hybrid-material'
 Plugin 'itchyny/lightline.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'junegunn/goyo.vim'
@@ -25,9 +30,11 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'scrooloose/nerdtree.git'
-Plugin 'arcticicestudio/nord-vim'
-Plugin 'rakr/vim-two-firewatch'
-Plugin '844196/lightline-badwolf.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'arcticicestudio/nord-vim'"
+"Plugin 'rakr/vim-two-firewatch'"
+"Plugin '844196/lightline-badwolf.vim'"
 call vundle#end()
 
 
@@ -35,16 +42,17 @@ call vundle#end()
 filetype plugin indent on
 
 set encoding=utf-8
+set background=dark
 scriptencoding utf-8
 " let g:Powerline_symbols = 'fancy'
 
 set linespace=8
-set guifont=Fantasque\ Sans\ Mono\ 12
+set guifont=Fantasque\ Sans\ Mono\ 8
 let Powerline_symbols = 'fancy'
 
 " set color
 
-colorscheme badwolf
+colorscheme hybrid_reverse
 " let g:nord_italic_comments = 1
 " set background=dark
 " set t_Co=16
@@ -61,9 +69,46 @@ endif
 " lightline fix
 set laststatus=2
 " set t_ut=
-let g:lightline = {
-      \ 'colorscheme': 'badwolf',
-      \ }
+"let g:lightline = {"
+"      \ 'colorscheme': 'gotham256',"
+"      \ }"
+" let g:airline_theme = 'laederon'
+let g:airline_theme = 'minimalist'
+" let g:airline_theme = 'hybrid'
+" let g:enable_italic_font = 1
+
+" ======================== fonts ======================
+"
+
+" air-line
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+    endif
+
+    " unicode symbols
+    let g:airline_left_sep = '»'
+    let g:airline_left_sep = '▶'
+    let g:airline_right_sep = '«'
+    let g:airline_right_sep = '◀'
+    let g:airline_symbols.linenr = '␊'
+    let g:airline_symbols.linenr = '␤'
+    let g:airline_symbols.linenr = '¶'
+    let g:airline_symbols.branch = '⎇'
+    let g:airline_symbols.paste = 'ρ'
+    let g:airline_symbols.paste = 'Þ'
+    let g:airline_symbols.paste = '∥'
+    let g:airline_symbols.whitespace = 'Ξ'
+
+    " airline symbols
+    let g:airline_left_sep = ''
+    let g:airline_left_alt_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_right_alt_sep = ''
+    let g:airline_symbols.branch = ''
+    let g:airline_symbols.readonly = ''
+    let g:airline_symbols.linenr = ''
 
 " ================ Turn Off Swap Files ==============
 "

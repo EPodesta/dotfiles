@@ -3,5 +3,7 @@
 
 config_version: 2
 settings:
-  downloads.open_dispatcher:
-    global: zathura
+  auto_save.session:
+    global: true
+  qt.force_software_rendering:
+    global: chromium

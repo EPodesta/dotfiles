@@ -36,11 +36,11 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-export TERM=xterm-256color
-COLORTERM='rxvt-unicode-256color'
+#case "$TERM" in
+#    xterm-color|*-256color) color_prompt=yes;;
+#esac
+#export TERM=xterm-256color
+#COLORTERM='rxvt-unicode-256color'
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
@@ -89,11 +89,13 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -halF'
 alias la='ls -A'
 alias l='ls -CF'
 alias seedu='sudo du -skh .[!.]**'
 alias mountFat='sudo mount -t vfat /dev/sdb1 /media/external -o uid=1000,gid=1000,utf8,dmask=027,fmask=137'
+#alias telegram='nohup bash /opt/telegram/Telegram &'
+#alias reditr='nohup reditr_app &'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -117,3 +119,4 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+export PATH="$HOME/.cabal/bin:/opt/cabal/2.2/bin:/opt/ghc/8.6.1/bin:/opt/reditr:$PATH"

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+xmodmap ~/.Xmodmap
+setxkbmap br
+xset +fp /home/podesta/.fonts
+xset fp rehash
+exec i3
