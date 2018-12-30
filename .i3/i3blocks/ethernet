@@ -1,7 +1,0 @@
-#!/bin/sh
-
-interface="enp3s0"
-state="$(cat /sys/class/net/$interface/operstate)"
-if [ "$state" = "up" ]; then
-	echo " $interface"
-fi

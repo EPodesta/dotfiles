@@ -1,4 +1,0 @@
-#!/bin/sh
-
-date=$(date '+%d/%b')
-echo "$date"
