@@ -90,7 +90,7 @@ URxvt*scrollBar:            false
 URxvt*internalBorder:       1
 
 ! font settings
-URxvt*font:                 xft:Fantasque Sans Mono:style=Regular:pixelsize=13
+URxvt*font:                 xft:Fantasque Sans Mono:style=Regular:pixelsize=11
 URxvt*letterSpace:          0
 
 ! font rendering

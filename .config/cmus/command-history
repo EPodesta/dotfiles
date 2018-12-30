@@ -1,0 +1,26 @@
+q
+player-play
+player-pause
+add /home/podesta/.cache/spotify/Storage/
+w
+player-pause 
+colorscheme tomorrow
+colorscheme default
+colorscheme zenburn
+colorscheme xterm-white
+colorscheme solarized-light
+vol up
+vol 60
+vol 10
+player-play 
+pause
+add Music/
+add Music
+update-cache 
+help
+colorscheme solarized-dark
+colorscheme night
+colorscheme green-mono-88
+colorscheme green
+colorscheme gray-88
+colorscheme cyan

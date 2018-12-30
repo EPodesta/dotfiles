@@ -1,0 +1,19 @@
+spotify-downloader:
+  avconv: false
+  download-only-metadata: false
+  dry-run: false
+  file-format: '{artist} - {track_name}'
+  folder: /home/podesta/Music
+  input-ext: .m4a
+  log-level: INFO
+  manual: false
+  music-videos-only: false
+  no-metadata: false
+  no-spaces: false
+  output-ext: .mp3
+  overwrite: prompt
+  search-format: '{artist} - {track_name} lyrics'
+  skip: null
+  trim-silence: false
+  write-successful: null
+  youtube-api-key: null

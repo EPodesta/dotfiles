@@ -1,0 +1,87 @@
+#
+# #!/bin/sh
+#
+# link=$(curl -s http://weather.noaa.gov/weather/current/SBFL.html)
+# src=$(echo "$link" | grep -E --context=2 -m 2 "Temperature|Sky conditions")
+# temp=$(awk 'FNR==11 {print substr($5,2,3)}' <<< "$src")
+# cond=$(awk 'FNR==5 {print $3,$4}' <<< "$src" | xargs)
+# if [[ "$cond" && "$temp" ]]; then
+# 	#echo "$cond [$temp°C]"
+# 	#if [[ "$cond" = "mostly cloudy" || "$cond" = "partly cloudy" || "$cond" = "cloudy" || "$cond" = "dreary (Overcast)" || "$cond" = "fog" ]]; then
+# 	# 	echo " [$temp°C]"
+# 	#elif [[  "$cond" = "sunny" || "$cond" = "mostly clear" || "$cond" = "mostly sunny" || "$cond" = "partly sunny" || "$cond" = "intermittent clouds" || "$cond" = "Hazy Sunshine" || "$cond" = "hazy sunshine" || "$cond" = "hot" ]]; then
+#
+# #		echo " [$temp°C]"
+#
+# #	else
+# 	echo "$cond [$temp°C]"
+# #	fi
+# 	#elif [[ $("$cond" = "showers" || "$cond" = "mostly cloudy w/ showers" || "$cond" = "partly sunny w/ showers" || "$cond" = "t-storms"|| "$cond" = "mostly cloudy w/ t-storms"|| "$cond" = "partly sunny w/ t-storms"|| "$cond" = "rain") ]]; then
+# 	#	echo " [$temp°C]"
+# 	#elif [[ $("$cond" = "windy") ]]; then
+# 	#	echo " [$temp°C]"
+# 	#elif [[ $("$cond" = "flurries" || "$cond" = "mostly cloudy w/ flurries" || "$cond" = "partly sunny w/ flurries"|| "$cond" = "snow"|| "$cond" = "mostly cloudy w/ snow"|| "$cond" = "ice"|| "$cond" = "sleet"|| "$cond" = "freezing rain"|| "$cond" = "rain and snow"|| "$cond" = "cold") ]]; then
+# 	#	echo " [$temp°C]"
+# 	#elif [[ $("$cond" = "clear" || "$cond" = "mostly clear" || "$cond" = "partly cloudy"|| "$cond" = "intermittent clouds"|| "$cond" = "hazy moonlight"|| "$cond" = "mostly cloudy"|| "$cond" = "partly cloudy w/ showers"|| "$cond" = "mostly cloudy w/ showers"|| "$cond" = "partly cloudy w/ t-storms"|| "$cond" = "mostly cloudy w/ flurries" || "$cond" = "mostly cloudy w/ snow") ]]; then
+# 	#	echo " [$temp°C]"
+# fi
+# [[ "$BLOCK_BUTTON" -eq 1 ]] && chromium http://weather.noaa.gov/weather/current/SBFL.html &
+
+#!/bin/bash
+# Based on http://openweathermap.org/current
+
+API_KEY="aa901f2a64349662c80d214506fa6135"
+
+# Check on http://openweathermap.org/find
+CITY_ID="3463237"
+
+URGENT_LOWER=0
+URGENT_HIGHER=30
+
+ICON_SUNNY=""
+ICON_CLOUDY=""
+ICON_RAINY=""
+ICON_STORM=""
+ICON_SNOW=""
+ICON_FOG=""
+
+# SYMBOL_CELSIUS="℃"
+SYMBOL_CELSIUS="˚C"
+
+WEATHER_URL="http://api.openweathermap.org/data/2.5/weather?id=${CITY_ID}&appid=${API_KEY}&units=metric"
+
+WEATHER_INFO=$(curl -s "${WEATHER_URL}")
+WEATHER_MAIN=$(echo "${WEATHER_INFO}" | grep -o -e '\"main\":\"[a-Z]*\"' | awk -F ':' '{print $2}' | tr -d '"')
+WEATHER_TEMP=$(echo "${WEATHER_INFO}" | grep -o -e '\"temp\":\-\?[0-9]*' | awk -F ':' '{print $2}' | tr -d '"')
+# echo "${WEATHER_MAIN}"
+# echo "${WEATHER_TEMP}"
+# echo "${ICON_RAINY}"
+if [ "${WEATHER_MAIN}" = "Snow" ]; then
+echo "${ICON_SNOW} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo "${ICON_SNOW} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo ""
+elif [ "${WEATHER_MAIN}" = "Rain" ] || [ "${WEATHER_MAIN}" = "Drizzle" ]; then
+echo "${ICON_RAINY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo "${ICON_RAINY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo ""
+elif [ "${WEATHER_MAIN}" = "Clouds" ]; then
+echo "${ICON_CLOUDY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo "${ICON_CLOUDY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo ""
+elif [ "${WEATHER_MAIN}" = "Clear" ]; then
+echo "${ICON_SUNNY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo "${ICON_SUNNY} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo ""
+elif [ "${WEATHER_MAIN}" = "Fog" ] || [ "${WEATHER_MAIN}" = "Mist" ] || ["${WEATHER_MAIN}" = "Haze"]; then
+echo "${ICON_FOG} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo "${ICON_FOG} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo ""
+else
+echo "${WEATHER_MAIN} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo "${WEATHER_MAIN} ${WEATHER_TEMP}${SYMBOL_CELSIUS}"
+echo ""
+fi
+
+if [[ "${WEATHER_TEMP}" -lt "${URGENT_LOWER}" ]] || [[ "${WEATHER_TEMP}" -gt "${URGENT_HIGHER}" ]]; then
+    exit 33
+fi
