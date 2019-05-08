@@ -31,19 +31,27 @@ floating_modifier $mod
 bindsym $mod+Return exec --no-startup-id urxvt -e tmux new-session
 
 # start firefox
-bindsym $mod+P exec qutebrowser
+# bindsym $mod+P exec firefox
+bindsym $mod+P exec  qutebrowser
 
 
 # Startup programs
 #exec --no-startup-id nm-applet
-exec --no-startup-id compton -b --no-fading-openclose
+exec --no-startup-id compton --config ~/.compton.conf -b
+#--no-fading-openclose
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id xrdb -merge $HOME/.Xresources
-exec --no-startup-id feh --bg-scale ~/Pictures/KfPLk9E.jpg
+exec --no-startup-id feh --bg-fill ~/Pictures/dororo.jpg
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # Custom KeyBinds
-bindsym Control+$mod+l exec sh /home/podesta/.i3/i3lock.sh /home/podesta/Pictures/1455044534_Password_2.png
+# exec --no-startup-id xautolock -time 30 -locker '~/.config/i3/i3lock-multimonitor/lock -i ~/Pictures/ZbPYF5n.jpg.png' &
+exec --no-startup-id xautolock -time 30 -locker '~/.config/i3/i3lock-fancy-multimonitor/lock -n -p' &
+# bindsym Control+$mod+l exec sh /home/podesta/.config/i3/i3lock.sh /home/podesta/Pictures/1455044534_Password_2.png
+# bindsym Control+$mod+l exec sh /home/podesta/.config/i3/i3lock-multimonitor/lock -i ~/Pictures/ZbPYF5n.jpg.png -a '-t -e -u'
+bindsym Control+$mod+l exec bash /home/podesta/.config/i3/i3lock-fancy-multimonitor/lock -n -p
 bindsym $mod+Control+P exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/'
 bindsym $mod+Control+S exec scrot -s '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/'
 
@@ -113,11 +121,16 @@ set $tag3 ""
 set $tag4 ""
 set $tag5 ""
 #set $tag6 ""
-bindsym $mod+1 workspace $tag1
-bindsym $mod+2 workspace $tag2
-bindsym $mod+3 workspace $tag3
-bindsym $mod+4 workspace $tag4
-bindsym $mod+5 workspace $tag5
+bindsym $mod+1 workspace 1
+#$tag1
+bindsym $mod+2 workspace 2
+#$tag2
+bindsym $mod+3 workspace 3
+#$tag3
+bindsym $mod+4 workspace 4
+#$tag4
+bindsym $mod+5 workspace 5
+#$tag5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
@@ -125,33 +138,50 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
 #gaps
-#set $default_gaps_inner 4
-#set $default_gaps_outer 4
-#gaps inner $default_gaps_inner
-#gaps outer $default_gaps_outer
+# set $default_gaps_inner 4
+# set $default_gaps_outer 4
+# gaps inner $default_gaps_inner
+# gaps outer $default_gaps_outer
 # smart_gaps on
-#smart_borders on
+# smart_borders on
 
 
 #assigns
-assign [class="Firefox"] $tag1
-assign [class="qutebrowser"] $tag1
-assign [class="Google-chrome"] $tag1
-assign [class="Subl"] $tag2
-assign [class="Atom"] $tag2
-assign [class="URxvt"] $tag2
-assign [class="Telegram"] $tag3
-assign [class="Messenger"] $tag3
-assign [class="Discord"] $tag3
-assign [class="Reditr"] $tag3
-assign [class="Spotify"] $tag4
-assign [class="Steam"] $tag4
+assign [class="Firefox"] 1
+assign [class="qutebrowser"] 1
+#$tag1
+assign [class="Google-chrome"] 1
+#$tag1
+assign [class="Subl"] 3
+#$tag2
+assign [class="Atom"] 3
+assign [class="zathura"] 3
+#$tag2
+assign [class="URxvt"] 2
+#$tag2
+assign [class="Telegram"] 4
+#$tag3
+assign [class="Messenger"] 4
+#$tag3
+assign [class="Discord"] 4
+#$tag3
+assign [class="Reditr"] 4
+#$tag3
+assign [class="Spotify"] 5
+#$tag4
+assign [class="Steam"] 5
+#$tag4
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $tag1
-bindsym $mod+Shift+2 move container to workspace $tag2
-bindsym $mod+Shift+3 move container to workspace $tag3
-bindsym $mod+Shift+4 move container to workspace $tag4
-bindsym $mod+Shift+5 move container to workspace $tag5
+bindsym $mod+Shift+1 move container to workspace 1
+#$tag1
+bindsym $mod+Shift+2 move container to workspace 2
+#$tag2
+bindsym $mod+Shift+3 move container to workspace 3
+#$tag3
+bindsym $mod+Shift+4 move container to workspace 4
+#$tag4
+bindsym $mod+Shift+5 move container to workspace 5
+#$tag5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
@@ -302,6 +332,27 @@ mode "$mode_gaps_outer" {
 #     # i3bar position
 #     position top
 # }
+##
+# move floating windows with keys
+bindsym $mod+m mode "move" focus floating
+mode "move" {
+    bindsym $mod+Tab focus right
+
+    bindsym Left  move left
+    bindsym Down  move down
+    bindsym Up    move up
+    bindsym Right move right
+
+    bindsym h     move left
+    bindsym j     move down
+    bindsym k     move up
+    bindsym l     move right
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 # exec_always compton -f

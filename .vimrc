@@ -27,14 +27,17 @@ Plugin 'junegunn/goyo.vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'reedes/vim-colors-pencil'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'dracula/vim'
 "Plugin 'arcticicestudio/nord-vim'"
 "Plugin 'rakr/vim-two-firewatch'"
 "Plugin '844196/lightline-badwolf.vim'"
+Plugin 'justinmk/vim-sneak'
+Plugin 'terryma/vim-multiple-cursors'
 call vundle#end()
 
 
@@ -115,6 +118,8 @@ if !exists('g:airline_symbols')
 set noswapfile
 set nobackup
 set nowb
+set splitbelow
+set splitright
 
 function! TrimWhitespace()
     let vsave = winsaveview()
@@ -125,9 +130,9 @@ endfunction
 autocmd BufWritePre * :call TrimWhitespace()
 
 " insert characters automatically
-" inoremap <      <><Left>
-" inoremap "      ""<Left>
-" inoremap '      ''<Left>
+inoremap <      <><Left>
+inoremap "      ""<Left>
+inoremap '      ''<Left>
 
 inoremap (      ()<Left>
 inoremap (<CR>  (<CR>)<ESC>O<Tab>
@@ -171,9 +176,15 @@ nnoremap <C-Down>   :m+1<CR>==
 xnoremap <C-Up>     :m-2<CR>gv=gv
 xnoremap <C-Down>   :m'>+<CR>gv=gv
 
+nnoremap <C-J>      <C-W><C-J>
+nnoremap <C-K>      <C-W><C-K>
+nnoremap <C-H>      <C-W><C-H>
+nnoremap <C-L>      <C-W><C-L>
 
+" nnoremap <C-j>     :tabp <Return>
+" nnoremap <C-k>     :tabn <Return>
 " NERDTree shortcut
-map <C-n> :NERDTreeToggle<CR>
+map <C-g> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 " keep indent from previous line if no filetype indent is specified
 set autoindent
