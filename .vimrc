@@ -38,6 +38,8 @@ Plugin 'vim-airline/vim-airline-themes'
 "Plugin '844196/lightline-badwolf.vim'"
 Plugin 'justinmk/vim-sneak'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'majutsushi/tagbar'
 call vundle#end()
 
 
@@ -85,6 +87,11 @@ let g:airline_theme = 'minimalist'
 
 " air-line
 let g:airline_powerline_fonts = 1
+set statusline+=%{gutentags#statusline()}
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
+let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_modules = ['ctags']
+
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
