@@ -3,9 +3,9 @@
 
 " no vi compat
 set nocompatible
-
-" filetype func off
-filetype off
+set path+=**
+set wildmenu
+command! MakeTags !ctags -R .
 
 " initialize vundle
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -29,7 +29,7 @@ Plugin 'reedes/vim-colors-pencil'
 Plugin 'easymotion/vim-easymotion'
 " Plugin 'Valloric/YouCompleteMe'
 Plugin 'sheerun/vim-polyglot'
-Plugin 'scrooloose/nerdtree.git'
+" Plugin 'scrooloose/nerdtree.git'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'dracula/vim'
@@ -37,9 +37,8 @@ Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'rakr/vim-two-firewatch'"
 "Plugin '844196/lightline-badwolf.vim'"
 Plugin 'justinmk/vim-sneak'
-Plugin 'terryma/vim-multiple-cursors'
+" Plugin 'terryma/vim-multiple-cursors'
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'majutsushi/tagbar'
 call vundle#end()
 
 
@@ -226,7 +225,7 @@ set mouse=a
 set nostartofline
 
 " show line numbers on the left
-set number
+set relativenumber
 
 " use <F2> to toggle between paste mode
 set pastetoggle=<F2>
