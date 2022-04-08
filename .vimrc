@@ -1,67 +1,65 @@
 " ~/.vimrc
 "
 
-" no vi compat
 set nocompatible
 set path+=**
-"command! MakeTags !ctags -R .
 
-" initialize vundle
 set rtp+=~/.vim/bundle/Vundle.vim
-"set rtp+=/usr/local/lib/python3.6/dist-packages/powerline/bindings/vim/
-
-
 call vundle#begin()
-" start- all plugins below
 Plugin 'VundleVim/Vundle.vim'
-" Plugin 'airblade/vim-gitgutter'
-"Plugin 'dpelle/vim-LanguageTool'
+Plugin 'tpope/vim-commentary'
 Plugin 'rhysd/vim-grammarous'
 Plugin 'vimwiki/vimwiki'
-"Plugin 'morhetz/gruvbox'
-"Plugin 'sjl/badwolf'"
-"Plugin 'whatyouhide/vim-gotham'"
 Plugin 'kristijanhusak/vim-hybrid-material'
 Plugin 'tpope/vim-fugitive'
 Plugin 'mhinz/vim-signify'
 Plugin 'wfxr/minimap.vim'
 Plugin 'AlessandroYorba/Arcadia'
 Plugin 'AlessandroYorba/sierra'
-"Plugin 'whatyouhide/vim-gotham'
-"Plugin 'kristijanhusak/vim-hybrid-material'
-"Plugin 'AlessandroYorba/Sierra'
-"Plugin 'itchyny/lightline.vim'
-" Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'justinmk/vim-sneak'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/goyo.vim'
-" Plugin 'tomtom/tcomment_vim'
-" Plugin 'reedes/vim-colors-pencil'
-" Plugin 'easymotion/vim-easymotion'
-" Plugin 'benjie/neomake-local-eslint.vim'
 Plugin 'neomake/neomake'
-"Plugin 'dense-analysis/ale'
 Plugin 'ycm-core/YouCompleteMe'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'unblevable/quick-scope'
 Plugin 'mhinz/vim-startify'
-" Plugin 'dracula/vim'
-"Plugin 'arcticicestudio/nord-vim'"
-"Plugin 'rakr/vim-two-firewatch'"
-"Plugin '844196/lightline-badwolf.vim'"
-" Plugin 'justinmk/vim-sneak'
-" Plugin 'terryma/vim-multiple-cursors'
 Plugin 'preservim/tagbar'
 Plugin 'lervag/vimtex'
 Plugin 'voldikss/fzf-floaterm'
 Plugin 'voldikss/vim-floaterm'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'bagrat/vim-buffet'
-"Plugin 'ludovicchabant/vim-gutentags'
 call vundle#end()
+
+let g:sneak#label = 1
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+" Trigger a highlight only when pressing f and F.
+let g:qs_highlight_on_keys = ['f', 'F']
+
+augroup qs_colors
+  autocmd!
+  "If there is no gui colors, cterm is set to vibrant colors.
+  autocmd ColorScheme * highlight QuickScopePrimary guifg='#a52a2a' gui=underline ctermfg=155 cterm=underline
+  autocmd ColorScheme * highlight QuickScopeSecondary guifg='#ff6347' gui=underline ctermfg=81 cterm=underline
+augroup END
+
+" 2-character Sneak (default)
+nmap <leader>s <Plug>Sneak_s
+nmap <leader>S <Plug>Sneak_S
+" visual-mode
+xmap <leader>s <Plug>Sneak_s
+xmap <leader>S <Plug>Sneak_S
+" operator-pending-mode
+omap <leader>s <Plug>Sneak_s
+omap <leader>S <Plug>Sneak_S
 
 function! NeomakeESlintChecker()
   let l:npm_bin = ''
@@ -81,7 +79,6 @@ autocmd FileType javascript :call NeomakeESlintChecker()
 
 autocmd! BufWritePost,BufReadPost * Neomake
 
-"let g:ale_completion_enabled = 0
 let g:ycm_show_diagnostics_ui = 0
 
 " When writing a buffer (no delay).
@@ -106,16 +103,13 @@ let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 
 set background=dark
 scriptencoding utf-8
-" let g:Powerline_symbols = 'fancy'
 
 set linespace=8
 set guifont=Hack:h9
-"let Powerline_symbols = 'fancy'
 set encoding=UTF-8
 set clipboard=unnamedplus
 
 " set color
-"set termguicolors
 set t_Co=256
 
 if exists('+termguicolors')
@@ -123,47 +117,22 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-"set termguicolors
 
 let g:arcadia_Twilight = 1
 let g:sierra_Twilight = 1
 colorscheme sierra
-"colorscheme arcadia
-"colorscheme badwolf
-" let g:nord_italic_comments = 1
-" set background=dark
-" set t_Co=16
 let g:minimap_width = 10
-" let g:minimap_auto_start = 1
-" let g:minimap_auto_start_win_enter = 1
 let g:minimap_block_filetypes = [ 'fugitive', 'nerdtree', 'tagbar', 'fzf', 'floaterm' ]
-"let g:minimap_close_filetypes = [ 'nerdtree', 'tagbar' ]
 let g:minimap_block_buftypes = [ 'nofile', 'nowrite', 'quickfix', 'floaterm', 'prompt' ]
 let g:minimap_highlight_search = 1
 let g:minimap_git_colors = 1
 
 let $FZF_DEFAULT_COMMAND = 'find .'
-"let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-"if &term =~ '256color'
-      " Disable Background Color Erase (BCE) so that color schemes work
-      "   " properly within 256-color terminals
 let &t_ut=''
-"endif
 
-" hi Normal ctermbg=none
-" highlight NonText ctermbg=none
-" let g:nord_background_color_256='NONE'
-" lightline fix
 set laststatus=2
 set spell
-" set t_ut=
-"let g:lightline = {"
-"      \ 'colorscheme': 'gotham256',"
-"      \ }"
-" let g:airline_theme = 'laederon'
 let g:airline_theme = 'minimalist'
-" let g:airline_theme = 'hybrid'
-" let g:enable_italic_font = 1
 
 " ======================== fonts ======================
 "
@@ -183,12 +152,7 @@ let g:fzf_colors =
             \ 'spinner': ['fg', 'Label'],
             \ 'header':  ['fg', 'Comment'] }
 
-" air-line
 let g:airline_powerline_fonts = 1
-"set statusline+=%{gutentags#statusline()}
-"let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
-"let g:gutentags_ctags_tagfile = '.tags'
-"let g:gutentags_modules = ['ctags']
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -241,9 +205,6 @@ endfunction
 
 autocmd BufWritePre * :call TrimWhitespace()
 
-" enable or disable search highlighting
-" inoremap <F4> <Esc>:set hlsearch!<CR>
-" nnoremap <F4> :set hlsearch!<CR>
 set hlsearch!
 
 " move lines up and down
@@ -258,10 +219,6 @@ nnoremap <C-J>      <C-W><C-J>
 nnoremap <C-K>      <C-W><C-K>
 nnoremap <C-H>      <C-W><C-H>
 nnoremap <C-L>      <C-W><C-L>
-
-" nnoremap <C-j>     :tabp <Return>
-" nnoremap <C-k>     :tabn <Return>
-" NERDTree shortcut
 
 let g:floaterm_shell='zsh'
 
@@ -298,6 +255,7 @@ nmap <leader>cm :Commands<CR>
 nmap <leader>go <Plug>(grammarous-open-info-window)
 nmap <leader>gn <Plug>(grammarous-move-to-next-error)
 let NERDTreeShowHidden=1
+
 " keep indent from previous line if no filetype indent is specified
 set autoindent
 
