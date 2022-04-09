@@ -38,11 +38,14 @@ Plugin 'bagrat/vim-buffet'
 call vundle#end()
 
 let g:sneak#label = 1
+
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Trigger a highlight only when pressing f and F.
 let g:qs_highlight_on_keys = ['f', 'F']
+
+autocmd ColorScheme * highlight Sneak guifg=black guibg=red ctermfg=black ctermbg=red
 
 augroup qs_colors
   autocmd!
@@ -50,16 +53,6 @@ augroup qs_colors
   autocmd ColorScheme * highlight QuickScopePrimary guifg='#a52a2a' gui=underline ctermfg=155 cterm=underline
   autocmd ColorScheme * highlight QuickScopeSecondary guifg='#ff6347' gui=underline ctermfg=81 cterm=underline
 augroup END
-
-" 2-character Sneak (default)
-nmap <leader>s <Plug>Sneak_s
-nmap <leader>S <Plug>Sneak_S
-" visual-mode
-xmap <leader>s <Plug>Sneak_s
-xmap <leader>S <Plug>Sneak_S
-" operator-pending-mode
-omap <leader>s <Plug>Sneak_s
-omap <leader>S <Plug>Sneak_S
 
 function! NeomakeESlintChecker()
   let l:npm_bin = ''
