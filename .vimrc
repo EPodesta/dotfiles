@@ -45,7 +45,7 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " Trigger a highlight only when pressing f and F.
 let g:qs_highlight_on_keys = ['f', 'F']
 
-autocmd ColorScheme * highlight Sneak guifg=black guibg=red ctermfg=black ctermbg=red
+autocmd ColorScheme * highlight Sneak guifg=black guibg='#a52a2a' ctermfg=black ctermbg=red
 
 augroup qs_colors
   autocmd!
