@@ -13,7 +13,6 @@ Plugin 'vimwiki/vimwiki'
 Plugin 'kristijanhusak/vim-hybrid-material'
 Plugin 'tpope/vim-fugitive'
 Plugin 'mhinz/vim-signify'
-Plugin 'wfxr/minimap.vim'
 Plugin 'AlessandroYorba/Arcadia'
 Plugin 'AlessandroYorba/sierra'
 Plugin 'justinmk/vim-sneak'
@@ -35,6 +34,7 @@ Plugin 'voldikss/fzf-floaterm'
 Plugin 'voldikss/vim-floaterm'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'bagrat/vim-buffet'
+Plugin 'tpope/vim-dispatch'
 call vundle#end()
 
 let g:sneak#label = 1
@@ -44,6 +44,8 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Trigger a highlight only when pressing f and F.
 let g:qs_highlight_on_keys = ['f', 'F']
+
+autocmd ColorScheme * highlight clear Conceal
 
 autocmd ColorScheme * highlight Sneak guifg=black guibg='#a52a2a' ctermfg=black ctermbg=red
 
@@ -114,11 +116,6 @@ endif
 let g:arcadia_Twilight = 1
 let g:sierra_Twilight = 1
 colorscheme sierra
-let g:minimap_width = 10
-let g:minimap_block_filetypes = [ 'fugitive', 'nerdtree', 'tagbar', 'fzf', 'floaterm' ]
-let g:minimap_block_buftypes = [ 'nofile', 'nowrite', 'quickfix', 'floaterm', 'prompt' ]
-let g:minimap_highlight_search = 1
-let g:minimap_git_colors = 1
 
 let $FZF_DEFAULT_COMMAND = 'find .'
 let &t_ut=''
@@ -232,7 +229,6 @@ let g:fzf_floaterm_newentries = {
 
 nnoremap <C-g> :NERDTreeToggle<CR>
 nnoremap <C-p> :TagbarToggle<CR>
-nnoremap <C-m> :MinimapToggle<CR>
 nnoremap <leader>h :noh<CR>
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fh :Files ~/<CR>
@@ -244,6 +240,7 @@ nnoremap <leader>ts :FloatermShow!<CR>
 nnoremap <leader>tt :Floaterms<CR>
 nnoremap <leader>gc :GrammarousCheck<CR>
 vnoremap <leader>gc :GrammarousCheck<CR>
+nnoremap <leader>mk :Make<CR>
 nmap <leader>cm :Commands<CR>
 nmap <leader>go <Plug>(grammarous-open-info-window)
 nmap <leader>gn <Plug>(grammarous-move-to-next-error)
