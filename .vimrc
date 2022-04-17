@@ -3,6 +3,7 @@
 
 set nocompatible
 set path+=**
+command! MakeTags !ctags --fields=+l -R .
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -12,15 +13,16 @@ Plugin 'rhysd/vim-grammarous'
 Plugin 'vimwiki/vimwiki'
 Plugin 'kristijanhusak/vim-hybrid-material'
 Plugin 'tpope/vim-fugitive'
-Plugin 'mhinz/vim-signify'
+" Plugin 'mhinz/vim-signify'
 Plugin 'AlessandroYorba/Arcadia'
 Plugin 'AlessandroYorba/sierra'
 Plugin 'justinmk/vim-sneak'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/goyo.vim'
-Plugin 'neomake/neomake'
-Plugin 'ycm-core/YouCompleteMe'
+" Plugin 'neomake/neomake'
+" Plugin 'ycm-core/YouCompleteMe'
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 Plugin 'sheerun/vim-polyglot'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -29,16 +31,98 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'unblevable/quick-scope'
 Plugin 'mhinz/vim-startify'
 Plugin 'preservim/tagbar'
-Plugin 'lervag/vimtex'
+" Plugin 'lervag/vimtex'
 Plugin 'voldikss/fzf-floaterm'
 Plugin 'voldikss/vim-floaterm'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'bagrat/vim-buffet'
 Plugin 'tpope/vim-dispatch'
+" Plugin 'ludovicchabant/vim-gutentags'
+" Plugin 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 call vundle#end()
+let g:coc_filetype_map = {'tex': 'latex'}
 
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+"Git
+nmap <silent> <leader>ci <Plug>(coc-git-chunkinfo)
+nmap <silent> <leader>nc <Plug>(coc-git-nextchunk)
+nmap <silent> <leader>pc <Plug>(coc-git-prevchunk)
+
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 let g:sneak#label = 1
-
+let g:gutentags_ctags_extra_args = ['--fields=+l']
+" let g:ycm_collect_identifiers_from_tags_files = 1
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
@@ -56,45 +140,45 @@ augroup qs_colors
   autocmd ColorScheme * highlight QuickScopeSecondary guifg='#ff6347' gui=underline ctermfg=81 cterm=underline
 augroup END
 
-function! NeomakeESlintChecker()
-  let l:npm_bin = ''
-  let l:eslint = 'eslint'
+" function! NeomakeESlintChecker()
+"   let l:npm_bin = ''
+"   let l:eslint = 'eslint'
 
-  if executable('npm')
-    let l:npm_bin = split(system('npm bin'), '\n')[0]
-  endif
+"   if executable('npm')
+"     let l:npm_bin = split(system('npm bin'), '\n')[0]
+"   endif
 
-  if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
-    let l:eslint = l:npm_bin . '/eslint'
-  endif
+"   if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+"     let l:eslint = l:npm_bin . '/eslint'
+"   endif
 
-  let b:neomake_javascript_eslint_exe = l:eslint
-endfunction
-autocmd FileType javascript :call NeomakeESlintChecker()
+"   let b:neomake_javascript_eslint_exe = l:eslint
+" endfunction
+" autocmd FileType javascript :call NeomakeESlintChecker()
 
-autocmd! BufWritePost,BufReadPost * Neomake
+" autocmd! BufWritePost,BufReadPost * Neomake
 
-let g:ycm_show_diagnostics_ui = 0
+" let g:ycm_show_diagnostics_ui = 0
 
-" When writing a buffer (no delay).
-call neomake#configure#automake('w')
-" When writing a buffer (no delay), and on normal mode changes (after 750ms).
-call neomake#configure#automake('nw', 750)
-" When reading a buffer (after 1s), and when writing (no delay).
-call neomake#configure#automake('rw', 1000)
-" Full config: when writing or reading a buffer, and on changes in insert and
-" normal mode (after 500ms; no delay when writing).
-call neomake#configure#automake('nrwi', 500)
+" " When writing a buffer (no delay).
+" call neomake#configure#automake('w')
+" " When writing a buffer (no delay), and on normal mode changes (after 750ms).
+" call neomake#configure#automake('nw', 750)
+" " When reading a buffer (after 1s), and when writing (no delay).
+" call neomake#configure#automake('rw', 1000)
+" " Full config: when writing or reading a buffer, and on changes in insert and
+" " normal mode (after 500ms; no delay when writing).
+" call neomake#configure#automake('nrwi', 500)
 
-let g:neomake_python_enabled_makers = ['pylint']
-let g:neomake_javascript_enabled_makers = ['jshint']
+" let g:neomake_python_enabled_makers = ['pylint']
+" let g:neomake_javascript_enabled_makers = ['jshint']
 
 let g:grammarous#show_first_error = 1
 
-if !exists('g:ycm_semantic_triggers')
-    let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
+" if !exists('g:ycm_semantic_triggers')
+    " let g:ycm_semantic_triggers = {}
+" endif
+" let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 
 set background=dark
 scriptencoding utf-8
@@ -120,6 +204,8 @@ colorscheme sierra
 let $FZF_DEFAULT_COMMAND = 'find .'
 let &t_ut=''
 
+vmap <leader>a <Plug>(coc-codeaction-selected)
+nmap <leader>a <Plug>(coc-codeaction-selected)
 set laststatus=2
 set spell
 let g:airline_theme = 'minimalist'
@@ -227,23 +313,24 @@ let g:fzf_floaterm_newentries = {
     \ 'cmd' : '' },
   \ }
 
-nnoremap <C-g> :NERDTreeToggle<CR>
-nnoremap <C-p> :TagbarToggle<CR>
-nnoremap <leader>h :noh<CR>
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fh :Files ~/<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>cc :Commits<CR>
-nnoremap <leader>tn :call Floaterm_new(input('Term Name: '))<CR>
-nnoremap <leader>th :FloatermHide!<CR>
-nnoremap <leader>ts :FloatermShow!<CR>
-nnoremap <leader>tt :Floaterms<CR>
-nnoremap <leader>gc :GrammarousCheck<CR>
-vnoremap <leader>gc :GrammarousCheck<CR>
-nnoremap <leader>mk :Make<CR>
-nmap <leader>cm :Commands<CR>
-nmap <leader>go <Plug>(grammarous-open-info-window)
-nmap <leader>gn <Plug>(grammarous-move-to-next-error)
+nnoremap <C-g>       :NERDTreeToggle<CR>
+nnoremap <C-p>       :TagbarToggle<CR>
+nnoremap <leader>h   :noh<CR>
+nnoremap <leader>ff  :Files<CR>
+nnoremap <leader>fh  :Files ~/<CR>
+nnoremap <leader>b   :Buffers<CR>
+nnoremap <leader>cc  :Commits<CR>
+nnoremap <leader>tn  :call Floaterm_new(input('Term Name: '))<CR>
+nnoremap <leader>th  :FloatermHide!<CR>
+nnoremap <leader>ts  :FloatermShow!<CR>
+nnoremap <leader>tt  :Floaterms<CR>
+nnoremap <leader>gc  :GrammarousCheck<CR>
+nnoremap <leader>mk  :Make<CR>
+" nnoremap <leader>gt  :YcmCompleter GoTo<CR>
+nmap <leader>cm      :Commands<CR>
+nmap <leader>go      <Plug>(grammarous-open-info-window)
+nmap <leader>gn      <Plug>(grammarous-move-to-next-error)
+
 let NERDTreeShowHidden=1
 
 " keep indent from previous line if no filetype indent is specified

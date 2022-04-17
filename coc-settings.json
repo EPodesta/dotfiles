@@ -1,0 +1,84 @@
+{
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/14.0.0/clangd_14.0.0/bin/clangd",
+  //-------- Code Spell Checker Configuration --------
+  // The Language local to use when spell checking. "en" and "en-GB" are currently supported.
+  "cSpell.language": "en",
+
+  // Controls the maximum number of spelling errors per document. Hello, this
+  // is a test.
+  "cSpell.maxNumberOfProblems": 100,
+
+  // Controls the number of suggestions shown.
+  "cSpell.numSuggestions": 8,
+
+  // The minimum length of a word before checking it against a dictionary.
+  "cSpell.minWordLength": 4,
+
+  // Words to add to dictionary for a workspace.
+  "cSpell.userWords": [
+    "Cachegrind",
+    "Callgrind",
+    "DHAT",
+    "Helgrind",
+    "Memcheck",
+    "Numa",
+    "Pthreads",
+    "Valgrind",
+    "ZSIM",
+    "clangd",
+    "manycore",
+    "manycores",
+    "microarchitecture",
+    "microkernel",
+    "minib",
+    "multicore",
+    "multicores",
+    "multikernel",
+    "pintools",
+    "prefetching",
+    "pthread",
+    "randum",
+    "scalloc",
+    "smalloc",
+    "srealloc"
+  ],
+
+  // Set the delay before spell checking the document. Default is 50.
+  "cSpell.spellCheckDelayMs": 50,
+  "cSpell.enabledLanguageIds": [
+    "asciidoc",
+    "c",
+    "cpp",
+    "csharp",
+    "css",
+    "git-commit",
+    "go",
+    "handlebars",
+    "haskell",
+    "html",
+    "jade",
+    "java",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "latex",
+    "less",
+    "markdown",
+    "php",
+    "plaintext",
+    "pt_BR",
+    "pug",
+    "python",
+    "restructuredtext",
+    "rust",
+    "scala",
+    "scss",
+    "text",
+    "typescript",
+    "typescriptreact",
+    "vim",
+    "yaml",
+    "yml"
+  ]
+}
