@@ -15,7 +15,8 @@ set $mod Mod4
 # is used in the bar {} block below. ISO 10646 = Unicode
 
 # font pango: System San Francisco Sisplay 8
-font xft: Fantasque Sans Mono 7
+# font xft: Fira Code 7
+font pango: Fira Code Nerd Font 7
 # font pango: Fantasque Sans Mono 8
 # font pango:DejaVu Sans Mono, Awesome 8
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -28,32 +29,38 @@ font xft: Fantasque Sans Mono 7
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id urxvt -e tmux new-session
+# bindsym $mod+Return exec --no-startup-id kitty -e tmux -u new-session
+bindsym $mod+Shift+Return exec --no-startup-id kitty -e tmuxinator workspace
+bindsym $mod+Return exec --no-startup-id kitty
 
 # start firefox
-# bindsym $mod+P exec firefox
-bindsym $mod+P exec  qutebrowser
+bindsym $mod+P exec firefox
+# bindsym $mod+P exec  qutebrowser
 
 
 # Startup programs
 #exec --no-startup-id nm-applet
-exec --no-startup-id compton --config ~/.compton.conf -b
+exec --no-startup-id picom --config ~/.compton.conf -b
 #--no-fading-openclose
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id xrdb -merge $HOME/.Xresources
-exec --no-startup-id feh --bg-fill ~/Pictures/dororo.jpg
+exec --no-startup-id feh --bg-fill ~/Pictures/j0uBATj.png
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # Custom KeyBinds
+exec --no-startup-id xautolock -time 30 -locker '~/.config/i3/i3lock.sh ' &
 # exec --no-startup-id xautolock -time 30 -locker '~/.config/i3/i3lock-multimonitor/lock -i ~/Pictures/ZbPYF5n.jpg.png' &
-exec --no-startup-id xautolock -time 30 -locker '~/.config/i3/i3lock-fancy-multimonitor/lock -n -p' &
+# exec --no-startup-id xautolock -time 30 -locker '~/.config/i3/i3lock-fancy-multimonitor/lock -n -p' &
+# exec --no-startup-id xautolock -time 30 -locker 'dm-tool lock' &
 # bindsym Control+$mod+l exec sh /home/podesta/.config/i3/i3lock.sh /home/podesta/Pictures/1455044534_Password_2.png
 # bindsym Control+$mod+l exec sh /home/podesta/.config/i3/i3lock-multimonitor/lock -i ~/Pictures/ZbPYF5n.jpg.png -a '-t -e -u'
-bindsym Control+$mod+l exec bash /home/podesta/.config/i3/i3lock-fancy-multimonitor/lock -n -p
+# bindsym Control+$mod+l exec bash /home/podesta/.config/i3/i3lock-fancy-multimonitor/lock -n -p
+# bindsym Control+$mod+l exec dm-tool lock
+bindsym Control+$mod+l exec sh /home/podesta/.config/i3/i3lock.sh
 bindsym $mod+Control+P exec scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/'
-bindsym $mod+Control+S exec scrot -s '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/'
+bindsym --release $mod+Control+S exec scrot -s '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures/'
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50 -padding 100 -opacity "80" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
@@ -62,34 +69,27 @@ bindsym $mod+Control+S exec scrot -s '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/P
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+d exec rofi -show run -no-show-match -font "Fantasque Sans Mono 12"
+bindsym $mod+d exec rofi -show run -no-show-match -font "Fira Code 12"
+
+bindsym Shift+grave exec dunstctl history-pop
+bindsym Shift+space exec dunstctl close
+bindsym $mod+Shift+grave exec dunstctl close-all
+# bindsym $mod+Shift+grave exec dunstctl context
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+ccedilla focus right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+ccedilla move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+x split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -157,7 +157,7 @@ assign [class="Subl"] 3
 assign [class="Atom"] 3
 assign [class="zathura"] 3
 #$tag2
-assign [class="URxvt"] 2
+assign [class="kitty"] 2
 #$tag2
 assign [class="Telegram"] 4
 #$tag3
