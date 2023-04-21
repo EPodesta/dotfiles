@@ -1,13 +1,13 @@
 # Setup fzf
 # ---------
 if [[ ! "$PATH" == */home/podesta/.fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}/home/podesta/.fzf/bin"
+  export PATH="${PATH:+${PATH}:}/usr/share/fzf/bin"
 fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/home/podesta/.fzf/shell/completion.zsh" 2> /dev/null
+[[ $- == *i* ]] && source "/usr/share/fzf/completion.zsh" 2> /dev/null
 
 # Key bindings
 # ------------
-source "/home/podesta/.fzf/shell/key-bindings.zsh"
+source "/usr/share/fzf/key-bindings.zsh"

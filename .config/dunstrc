@@ -1,5 +1,5 @@
 [global]
-font = Iosevka Term 11
+font = Fira Code Nerd Font 9
 
 # Allow a small subset of html markup:
 #   <b>bold</b>
@@ -33,6 +33,8 @@ indicate_hidden = yes
 # Alignment of message text.
 # Possible values are "left", "center" and "right".
 alignment = center
+
+corner_radius = 7
 
 # The frequency with wich text that is longer than the notification
 # window allows bounces back and forth.

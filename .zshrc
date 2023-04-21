@@ -1,9 +1,10 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="$HOME/bin:/usr/local/bin:$HOME/.gem/ruby/2.7.0/bin/:$PATH"
+export JAVA_HOME="/usr/lib/jvm/java-19-openjdk"
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="/usr/share/oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -99,12 +100,15 @@ alias wthr='curl wttr.in/florianopolis'
 alias matrix='unimatrix -n -s 96 -l o'
 alias rsync-nanvix='rsync -avz --delete-after --exclude="*.o" --exclude=".git" --exclude="*.swp" --exclude="doc"'
 alias tmux='tmux -u'
+alias kp='keepassxc-cli'
 # alias rm-except='find . ! -name 'file.txt' -type f -exec rm -f {} +'
 
 export TARGET="unix64"
 export EDITOR="vim"
 export VISUAL="vim"
 export GIT_EDITOR="vim"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 source $ZSH/oh-my-zsh.sh
 
@@ -139,3 +143,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/podesta/github/packiot/pubsub/google-cloud-sdk/path.zsh.inc' ]; then . '/home/podesta/github/packiot/pubsub/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/podesta/github/packiot/pubsub/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/podesta/github/packiot/pubsub/google-cloud-sdk/completion.zsh.inc'; fi
