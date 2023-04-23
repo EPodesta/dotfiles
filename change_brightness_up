@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Arbitrary but unique message tag
+msgTag="Brightness"
+
+xbacklight -inc "$@" > /dev/null
+
+brightness="$(xbacklight -get)"
+dunstify -a "change_brightness" -u low -i display-brightness-symbolic -h string:x-dunst-stack-tag:$msgTag -h int:value:"$brightness" "Brightness"

@@ -1,0 +1,27 @@
+#!/bin/bash
+# change_volume_up
+
+# Arbitrary but unique message tag
+msgTag="Volume"
+
+# Change the volume using alsa(might differ if you use pulseaudio)
+pamixer -i "$@" > /dev/null
+
+# Query amixer for the current volume and whether or not the speaker is muted
+volume="$(pamixer --get-volume-human | cut -d% -f 1)"
+if [[ $volume == 0 || "$volume" == "muted" ]]; then
+    # Show the sound muted notification
+    dunstify -a "change_volume" -u low -i audio-volume-muted-symbolic -h string:x-dunst-stack-tag:$msgTag "Volume muted"
+elif [[ $volume > 60 || $volume == 100 ]]; then
+    # Show the volume notification
+    dunstify -a "change_volume" -u low -i audio-volume-high-symbolic -h string:x-dunst-stack-tag:$msgTag \
+    -h int:value:"$volume%" "Volume"
+elif [[ $volume > 30 ]]; then
+    # Show the volume notification
+    dunstify -a "change_volume" -u low -i audio-volume-medium-symbolic -h string:x-dunst-stack-tag:$msgTag \
+    -h int:value:"$volume%" "Volume"
+else
+    # Show the volume notification
+    dunstify -a "change_volume" -u low -i audio-volume-low-symbolic -h string:x-dunst-stack-tag:$msgTag \
+    -h int:value:"$volume%" "Volume"
+fi

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Arbitrary but unique message tag
+msgTag="DND"
+
+dnd="$(dunstctl is-paused)"
+if [[ "$dnd" == "false" ]]; then
+    dunstify -a "toggle_dnd" -u low -i dialog-error-symbolic -h string:x-dunst-stack-tag:$msgTag "DND on"
+else
+    dunstify -a "toggle_dnd" -u low -i dialog-error-symbolic -h string:x-dunst-stack-tag:$msgTag "DND off"
+fi
+dunstctl set-paused toggle
